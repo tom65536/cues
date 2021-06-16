@@ -1,5 +1,7 @@
 
-include karax/prelude
+import karax / [karax, karaxdsl, kbase, kdom, vdom]
+
+
 
 type
   Model = ref object

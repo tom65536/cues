@@ -8,6 +8,9 @@ srcDir        = "src"
 bin           = @["cues"]
 backend       = "js"
 
+task webapp, "Updates the files in the webapp folder":
+  exec "nim js -d:release --out: webapp/app.js src/cues.nim"
+
 # Dependencies
 
 requires "nim >= 1.4.8"
