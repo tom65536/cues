@@ -22,7 +22,7 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/node
+      - image: circleci/node
     steps:
       - checkout
       # Attach the pesisted built files.
