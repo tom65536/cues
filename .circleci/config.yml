@@ -31,9 +31,10 @@ jobs:
       - run:
           name: Install netlify-cli
           command: sudo npm install -g --silent netlify-cli
-      - run:
-          name: Deploy to Netlify
-          command: netlify deploy --dir=./webapp -p
+      - run: ls webapp
+#      - run:
+#          name: Deploy to Netlify
+#          command: netlify deploy --dir=./webapp -p
 
 workflows:
   version: 2
