@@ -15,4 +15,35 @@ jobs:
             - .nimble
       - run: nimble install -dy
       - run: nimble webapp -y
-      - run: ls webapp
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - webapp
+
+  deploy:
+    executor: node
+    steps:
+      - checkout
+      # Attach the pesisted built files.
+      - attach_workspace:
+          at: ./
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - run:
+          name: Install netlify-cli
+          command: sudo npm install -g --silent netlify-cli
+      - run:
+          name: Deploy to Netlify
+          command: netlify deploy --dir=./webapp -p
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+      - deploy:
+          requires:
+            - build
+#          filters:
+#            branches:
+#              only: master
