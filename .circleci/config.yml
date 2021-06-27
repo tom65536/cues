@@ -13,5 +13,6 @@ jobs:
           key: nim-0000
           paths:
             - .nimble
+      - run: nimble install -dy
       - run: nimble webapp -y
       - run: ls webapp
