@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: nimlang/nim
+    steps:
+      - run: echo 'export PATH=~/.nimble/bin:$PATH' >> $BASH_ENV
+      - checkout
+      # Reuse cached directories
+      - restore_cache:
+          key: nim-0000
+      - save_cache:
+          key: nim-0000
+          paths:
+            - .nimble
+      - run: nimble webapp -y
+      - run: ls webapp
