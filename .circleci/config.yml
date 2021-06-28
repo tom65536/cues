@@ -30,9 +30,10 @@ jobs:
           at: ./
       - run:
           name: Install neocities gem
-          command: sudo gem install -g --silent netlify-cli
+          command: sudo gem install neocities
       - run: ls webapp
       - run: neocities --version
+      - run: neocities push webapp
 
 workflows:
   version: 2
