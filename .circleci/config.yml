@@ -1,0 +1,54 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: nimlang/nim
+    steps:
+      - run: echo 'export PATH=~/.nimble/bin:$PATH' >> $BASH_ENV
+      - checkout
+      # Reuse cached directories
+      - restore_cache:
+          key: nim-0000
+      - save_cache:
+          key: nim-0000
+          paths:
+            - .nimble
+      - run: nimble install -dy
+      - run: nimble webapp -y
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - webapp
+
+  deploy:
+    docker:
+      - image: circleci/ruby
+    steps:
+      - checkout
+      # Attach the pesisted built files.
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Install neocities gem
+          command: sudo gem install neocities
+      - run:
+          name: Ensure neocities cli is up and running
+          command: neocities version
+      - run:
+          name: Push web content
+          command: neocities push webapp
+      - run:
+          name: Read file listing from site
+          command: neocities list
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+#          filters:
+#            branches:
+#              only: master
