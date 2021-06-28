@@ -37,9 +37,6 @@ jobs:
       - run:
           name: Push web content
           command: neocities push webapp
-      - run:
-          name: Read file listing from site
-          command: neocities list
 
 workflows:
   version: 2
@@ -49,6 +46,6 @@ workflows:
       - deploy:
           requires:
             - build
-#          filters:
-#            branches:
-#              only: master
+          filters:
+            branches:
+              only: master
