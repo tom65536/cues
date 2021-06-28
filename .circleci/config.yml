@@ -22,19 +22,17 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node
+      - image: circleci/ruby
     steps:
       - checkout
       # Attach the pesisted built files.
       - attach_workspace:
           at: ./
       - run:
-          name: Install netlify-cli
-          command: sudo npm install -g --silent netlify-cli
+          name: Install neocities gem
+          command: sudo gem install -g --silent netlify-cli
       - run: ls webapp
-#      - run:
-#          name: Deploy to Netlify
-#          command: netlify deploy --dir=./webapp -p
+      - run: neocities --version
 
 workflows:
   version: 2
