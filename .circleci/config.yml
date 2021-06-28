@@ -31,9 +31,15 @@ jobs:
       - run:
           name: Install neocities gem
           command: sudo gem install neocities
-      - run: ls webapp
-      - run: neocities --version
-      - run: neocities push webapp
+      - run:
+          name: Ensure neocities cli is up and running
+          command: neocities version
+      - run:
+          name: Push web content
+          command: neocities push webapp
+      - run:
+          name: Read file listing from site
+          command: neocities list
 
 workflows:
   version: 2
