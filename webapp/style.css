@@ -1,0 +1,17 @@
+.card {
+  box-shadow: 0 0.5ex 0.8ex 0 rgba(0,0,0,0.2);
+  border-radius: 1ex;
+  transition: 0.3s;
+  border-spacing: 2ex;
+  max-width: 20em;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 1em 2ex;
+}

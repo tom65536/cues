@@ -1,9 +1,7 @@
 
-type
-   PuzzleKind* = enum
-      NimPuzzleKind,
-      MemoryPuzzleKind
+import puzzles
 
+type
    AppState* = enum
       AppMainMenu,
       AppPuzzleConfig,
@@ -23,28 +21,6 @@ type
       of MainMenuInfoEntry:
          nothing_info : int
 
-   NimPuzzleConfigObj* = object
-      size: int
-
-   MemoryPuzzleConfigObj* = object
-      rows, cols: int
-
-   PuzzleConfigObj* = object
-      case puzzle_kind*: PuzzleKind
-      of NimPuzzleKind:
-         nim_puzzle_config*: NimPuzzleConfigObj
-      of MemoryPuzzleKind:
-         memory_puzzle_config*: MemoryPuzzleConfigObj
-
-   NimPuzzleStateObj* = distinct int
-   MemoryPuzzleStateObj* = distinct int
-
-   PuzzleStateObj* = object
-      case puzzle_kind*: PuzzleKind
-      of NimPuzzleKind:
-         nim_puzzle_state*: NimPuzzleStateObj
-      of MemoryPuzzleKind:
-         memory_puzzle_state*: MemoryPuzzleStateObj
 
    Model* = ref ModelObj
 
@@ -56,3 +32,9 @@ type
          puzzle_config*: PuzzleConfigObj
       of AppPuzzleRun:
          puzzle_state*: PuzzleStateObj
+
+proc init*(): Model =
+   Model(
+     app_state: AppMainMenu,
+     main_menu_model: MainMenuModelObj(selected_entry_kind: MainMenuInfoEntry)
+   )
